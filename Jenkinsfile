@@ -69,10 +69,7 @@ pipeline {
                 timeout(time: 1, unit: 'HOURS') {
                     // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
                     // true = set pipeline to UNSTABLE, false = don't
-                    def qualitygate = waitForQualityGate()
-                    if (qualitygate.status != "OK") {
-                        error "Pipeline aborted due to quality gate coverage failure: ${qualitygate.status}"
-                    }
+                    waitForQualityGate abortPipeline: true
                 }
             }
         }
